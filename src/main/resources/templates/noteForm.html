@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" th:href="@{/minified/themes/default.min.css}"/>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">#MyNotesApp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/notes}">Moje notatki <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/notes/add-note}">Dodaj notatke</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="w-75 mx-auto pt-4">
+    <form method="post" th:action="@{/notes/save-note}" th:object="${note}" id="formNote">
+        <div class="form-group">
+            <label for="titleInput">Podaj tytuł</label>
+            <input type="text" th:field="*{title}" class="form-control" id="titleInput" aria-describedby="title"
+                   placeholder="Podaj tytuł"/>
+        </div>
+        <div class="form-group">
+            <label for="contentInput">Treść</label>
+            <textarea th:field="*{content}" style="height: 300px;" form="formNote" id="contentInput"
+                      class="form-control"
+                      aria-describedby="content" placeholder="Podaj treść"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Zapisz">
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script th:src="@{/minified/sceditor.min.js}"></script>
+<!--<script th:src="@{/minified/formats/bbcode.js}"></script>-->
+<script th:src="@{/minified/formats/xhtml.js}"></script>
+<script>
+    // Replace the textarea #example with SCEditor
+    var textarea = document.getElementById('contentInput');
+    sceditor.create(textarea, {
+        format: 'xhtml',
+        style: '/minified/themes/content/default.min.css'
+    });
+</script>
+
+</body>
+</html>
